@@ -7,16 +7,15 @@ from torch import nn
 from PIL import Image
 from numpy import asarray
 from tqdm.auto import tqdm
+from torchvision import transforms
 from torch.utils.data import DataLoader
 from torchvision.transforms import ToTensor
-from torchvision import transforms
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.utils import to_categorical
 
 
 
 def data_prep_archive(batch_size, image_size):
-
 
     # 1. Create multi-class data
     # Train
@@ -58,14 +57,10 @@ def data_prep_archive(batch_size, image_size):
     val = val.drop(columns=['RandomOrder'])
     
     
-    
-    
     train_features = extract_features(train['image'], image_size)
     test_features = extract_features(test['image'], image_size)
     val_features = extract_features(val['image'], image_size) 
-    
 
-    
 
     le = LabelEncoder()
     le.fit(train['label'])
