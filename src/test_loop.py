@@ -12,6 +12,7 @@ def test_loop(model: torch.nn.Module,
               optimizer: torch.optim.Optimizer,
               device: torch.device, 
               test_dataloader: torch.utils.data.DataLoader):
+    
     """Tests a PyTorch model for a single epoch.
 
     Turns a target PyTorch model to "eval" mode and then performs
@@ -28,6 +29,7 @@ def test_loop(model: torch.nn.Module,
     In the form (test_loss, test_accuracy). For example:
 
     (0.0223, 0.8985)
+    
     """
     
     # Put the model in evaluation mode
