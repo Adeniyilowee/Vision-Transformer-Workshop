@@ -11,7 +11,7 @@ from torchvision import transforms
 from torch.utils.data import DataLoader
 from torchvision.transforms import ToTensor
 from sklearn.preprocessing import LabelEncoder
-from tensorflow.keras.utils import to_categorical
+#from tensorflow.keras.utils import to_categorical
 
 
 
@@ -19,7 +19,7 @@ def data_prep_archive(batch_size, image_size):
 
     # 1. Create multi-class data
     # Train
-    train_directory ="archive_/train/"
+    train_directory ="archive/train/"
     train = pd.DataFrame()
     train['image'], train['label'] = load_dataset(train_directory)
     
@@ -32,7 +32,7 @@ def data_prep_archive(batch_size, image_size):
     
     
     # Test
-    test_directory = "archive_/test/"
+    test_directory = "archive/test/"
     test = pd.DataFrame()
     test['image'], test['label'] = load_dataset(test_directory)
     
@@ -45,7 +45,7 @@ def data_prep_archive(batch_size, image_size):
     
     
     
-    val_directory = "archive_/validation/"
+    val_directory = "archive/validation/"
     val = pd.DataFrame()
     val['image'], val['label'] = load_dataset(val_directory)
 

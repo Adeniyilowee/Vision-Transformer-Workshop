@@ -17,50 +17,8 @@ from numpy import asarray
 from PIL import Image
 
 from sklearn.preprocessing import LabelEncoder
-from tensorflow.keras.utils import to_categorical
+#from tensorflow.keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
-
-
-def data_prep_pytorch_mnist(batch_size, image_size):
-
-    
-    
-    data_transform = transforms.Compose([transforms.Resize(image_size),
-                                         transforms.ToTensor()])
-    # Setup training data
-    train_data = datasets.FashionMNIST(root="mnist_data", # where to download data to?
-                                       train=True, # get training data
-                                       download=True, # download data if it doesn't exist on disk
-                                       transform=data_transform, # images come as PIL format, we want to turn into Torch tensors
-                                       target_transform=None # you can transform labels as well
-                                      )
-
-    # Setup testing data
-    test_data = datasets.FashionMNIST(root="mnist_data",
-                                      train=False, # get test data
-                                      download=True,
-                                      transform=data_transform)
-
-
-    
-    
-    
-    
-    # Data Loader
-
-    # Turn datasets into iterables (batches)
-    train_dataloader = DataLoader(train_data, # dataset to turn into iterable
-                                  batch_size=batch_size, # how many samples per batch? 
-                                  shuffle=True # shuffle data every epoch?
-                                 )
-
-    
-    test_dataloader = DataLoader(test_data,
-                                 batch_size=batch_size,
-                                 shuffle=False
-                                )
-
-    return train_dataloader, test_dataloader, train_data.targets, test_data.targets, train_data.classes
 
 
 
@@ -70,7 +28,7 @@ def data_prep_archive(batch_size, image_size, data_transform):
 
     # 1. Create multi-class data
     # Train
-    train_directory ="archive_/train/"
+    train_directory ="archive/train/"
     train = pd.DataFrame()
     train['image'], train['label'] = load_dataset(train_directory)
     
@@ -83,7 +41,7 @@ def data_prep_archive(batch_size, image_size, data_transform):
     
     
     # Test
-    test_directory = "archive_/test/"
+    test_directory = "archive/test/"
     test = pd.DataFrame()
     test['image'], test['label'] = load_dataset(test_directory)
     
@@ -96,7 +54,7 @@ def data_prep_archive(batch_size, image_size, data_transform):
     
     
     
-    val_directory = "archive_/validation/"
+    val_directory = "archive/validation/"
     val = pd.DataFrame()
     val['image'], val['label'] = load_dataset(val_directory)
 

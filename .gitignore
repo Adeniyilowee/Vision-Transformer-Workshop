@@ -1,5 +1,6 @@
 .DS_Store
 archive
+src/archive
 vit_paper.pdf
 .ipynb_checkpoints
 predict_image.jpg

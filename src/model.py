@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+import torch.nn.functional as F
 
 class Patch_Embeddings(nn.Module):
 
@@ -80,19 +81,19 @@ class Head(nn.Module):
         query = self.query(query) # (B,T,hs)
         
         # compute attention scores ("affinities")
-        wei = query @ key.transpose(-2,-1) # (B, T, hs) @ (B, hs, T) -> (B, T, T)
+        weight = query @ key.transpose(-2,-1) # (B, T, hs) @ (B, hs, T) -> (B, T, T)
         
-        wei = wei * key.shape[-1]**-0.5 # Scale Factor
+        weight = weight * key.shape[-1]**-0.5 # Scale Factor
 
-        wei = wei.masked_fill(torch.tril(torch.ones(T,T)) == 0, float('-inf'))# (B, T, T)
+        weight = weight.masked_fill(torch.tril(torch.ones(T,T)) == 0, float('-inf'))# (B, T, T) # this can be commented out for a bi-directional effect
         
-        wei = F.softmax(wei, dim=-1) # (B, T, T)
+        weight = F.softmax(weight, dim=-1) # (B, T, T)
         
-        wei = self.dropout(wei)
+        weight = self.dropout(weight)
         
         # perform the weighted aggregation of the values
         value = self.value(value) # (B,T,hs)
-        out = wei @ value # (B, T, T) @ (B, T, hs) -> (B, T, hs)
+        out = weight @ value # (B, T, T) @ (B, T, hs) -> (B, T, hs)
         
         return out
     
@@ -156,18 +157,7 @@ class MSAttention_Block(nn.Module):
                                              need_weights=False)
         '''
         return attn_output
-    
 
-
-    def forward(self, x):
-        x = self.layer_norm(x)
-        attn_output, _ = self.multihead_attn(query=x, # the attn weight is not needed, thus _
-                                             key=x,
-                                             value=x,
-                                             need_weights=False)
-        
-        return attn_output
-    
 
     
     
