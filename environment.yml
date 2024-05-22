@@ -1,0 +1,25 @@
+name: vitt_workshop
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ipykernel
+  - ipywidgets
+  - jupyterlab
+  - matplotlib
+  - pandas
+  - python=3.8
+  - scikit-learn
+  - scipy
+  - setuptools
+  - pip
+  - pip:
+      - keras
+      - mlxtend
+      - pip
+      - rasterio
+      - toml
+      - torchinfo
+      - torchmetrics
+      - tqdm
+      - xarray

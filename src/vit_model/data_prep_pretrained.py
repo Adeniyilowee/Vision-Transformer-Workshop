@@ -5,7 +5,6 @@ import pandas as pd
 
 import torch
 
-import torchvision
 from torch import nn
 from torch.utils.data import DataLoader
 

@@ -1,15 +1,11 @@
 import os
 import torch
 import numpy as np
-import torchvision
 import pandas as pd
-from torch import nn
 from PIL import Image
-from numpy import asarray
 from tqdm.auto import tqdm
 from torchvision import transforms
 from torch.utils.data import DataLoader
-from torchvision.transforms import ToTensor
 from sklearn.preprocessing import LabelEncoder
 #from tensorflow.keras.utils import to_categorical
 
