@@ -1,4 +1,4 @@
-name: vitt_workshop
+name: vit_workshop_2024
 channels:
   - conda-forge
   - defaults

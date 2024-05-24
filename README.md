@@ -7,11 +7,11 @@ Please install a Miniconda environment. You will find a Windows, macOS or Linux 
 
 - Clone this repository by using this line of code: 
         
-        https://github.com/Adeniyilowee/Vision-Transformer-Workshop.git
+        git clone https://github.com/Adeniyilowee/Vision-Transformer-Workshop.git
 
 - Open a terminal and change directory to the git cloned repository path:
 
-        cd cloned_repository_path
+        cd Vision-Transformer-Workshop
 
 - Then create a new conda environment using:
 
@@ -21,7 +21,7 @@ Please install a Miniconda environment. You will find a Windows, macOS or Linux 
 
 - Activate the environment: 
 
-        conda activate vision_transformer_workshop
+        conda activate vit_workshop_2024
 
 - Manually install torch vision using: 
 
@@ -29,7 +29,7 @@ Please install a Miniconda environment. You will find a Windows, macOS or Linux 
 
 - And then execute this to make the environment visible: 
 
-        python -m ipykernel install --user --name vit_workshop --display-name "vit_Workshop"
+        python -m ipykernel install --user --name vit_workshop_2024 --display-name "vit_Workshop_2024"
 - Finally to make all files and folder sync:
 
         pip install -e .
