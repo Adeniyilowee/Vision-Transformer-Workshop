@@ -15,7 +15,7 @@ def data_prep_archive(batch_size, image_size):
 
     # 1. Create multi-class data
     # Train
-    train_directory ="archive/train/"
+    train_directory ="src/vit_model/archive/train/"
     train = pd.DataFrame()
     train['image'], train['label'] = load_dataset(train_directory)
     
@@ -28,7 +28,7 @@ def data_prep_archive(batch_size, image_size):
     
     
     # Test
-    test_directory = "archive/test/"
+    test_directory = "src/vit_model/archive/test/"
     test = pd.DataFrame()
     test['image'], test['label'] = load_dataset(test_directory)
     
@@ -41,7 +41,7 @@ def data_prep_archive(batch_size, image_size):
     
     
     
-    val_directory = "archive/validation/"
+    val_directory = "src/vit_model/archive/validation/"
     val = pd.DataFrame()
     val['image'], val['label'] = load_dataset(val_directory)
 
@@ -80,7 +80,7 @@ def data_prep_archive(batch_size, image_size):
                                  shuffle=True)
     
     val_dataloader = DataLoader(list(zip(val_features, y_val)), 
-                                batch_size=32, shuffle=False)
+                                batch_size=batch_size, shuffle=False)
     
     classes = ['Bird','Cat', 'Dog']
     return train_dataloader, test_dataloader, val_dataloader, torch.from_numpy(y_train), torch.from_numpy(y_test),  torch.from_numpy(y_val), classes

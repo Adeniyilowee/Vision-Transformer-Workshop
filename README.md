@@ -27,6 +27,8 @@ Please install a Miniconda environment. You will find a Windows, macOS or Linux 
 
         conda install torchvision -c pytorch
 
+- Type "yes" or "y" and press enter to install all the required initialization dependencies.
+
 - And then execute this to make the environment visible: 
 
         python -m ipykernel install --user --name vit_workshop_2024 --display-name "vit_Workshop_2024"

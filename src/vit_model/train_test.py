@@ -2,7 +2,7 @@ import torch
 from tqdm.auto import tqdm
 
 from torch import nn
-import train_loop, test_loop
+from src.vit_model import train_loop, test_loop
 
 
 def train_test(model, lr, epochs, train_dataloader, test_dataloader, device):

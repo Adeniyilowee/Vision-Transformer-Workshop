@@ -4,7 +4,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from torchvision import transforms
 
-from test_loop import accuracy_fn
+from src.vit_model.test_loop import accuracy_fn
 
 
 def predict_test(model: torch.nn.Module, 
