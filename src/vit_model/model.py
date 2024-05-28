@@ -174,6 +174,7 @@ class MLP_Block(nn.Module):
                                  nn.Dropout(p=dropout),
                                  nn.Linear(in_features=mlp_size,
                                            out_features=embedding_dim), # squeezed back to the embedding dimension as seen in the next cell (shape)
+                                 nn.GELU(),
                                  nn.Dropout(p=dropout))                 # drop out or activation fn does not chage dimension
 
     def forward(self, x):
@@ -225,9 +226,10 @@ class Vision_Transformer(nn.Module):
                                                                            mlp_dropout=mlp_dropout) for _ in range(num_transformer_layers)])
 
         # Create classifier head
-        self.classifier = nn.Sequential(nn.LayerNorm(normalized_shape=embedding_dim),
-                                        nn.Linear(in_features=embedding_dim,
-                                                  out_features=num_classes))
+        self.classifier = nn.Sequential(nn.LayerNorm(normalized_shape=embedding_dim), 
+                                        nn.Linear(in_features=embedding_dim, 
+                                                  out_features=num_classes),
+                                        nn.ReLU())
         
         
   

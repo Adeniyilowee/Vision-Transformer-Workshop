@@ -7,17 +7,17 @@ from tqdm.auto import tqdm
 from torchvision import transforms
 from torch.utils.data import DataLoader
 from sklearn.preprocessing import LabelEncoder
-#from tensorflow.keras.utils import to_categorical
 
 
 
-def data_prep_archive(batch_size, image_size):
+
+def data_prep_archive(batch_size, image_size, data_type):
 
     # 1. Create multi-class data
     # Train
     train_directory ="src/vit_model/archive/train/"
     train = pd.DataFrame()
-    train['image'], train['label'] = load_dataset(train_directory)
+    train['image'], train['label'] = load_dataset(train_directory, data_type)
     
     # shuffle the dataset
     control = 'label'
@@ -26,24 +26,10 @@ def data_prep_archive(batch_size, image_size):
     train = train.sort_values(by=['RandomOrder', control]).reset_index(drop=True)
     train = train.drop(columns=['RandomOrder'])
     
-    
-    # Test
-    test_directory = "src/vit_model/archive/test/"
-    test = pd.DataFrame()
-    test['image'], test['label'] = load_dataset(test_directory)
-    
-    # shuffle the dataset
-    control = 'label'
-    random_order = np.random.permutation(len(test))
-    test['RandomOrder'] = random_order
-    test = test.sort_values(by=['RandomOrder', control]).reset_index(drop=True)
-    test = test.drop(columns=['RandomOrder'])
-    
-    
-    
+    # Validation
     val_directory = "src/vit_model/archive/validation/"
     val = pd.DataFrame()
-    val['image'], val['label'] = load_dataset(val_directory)
+    val['image'], val['label'] = load_dataset(val_directory, data_type)
 
     # shuffle the dataset
     control = 'label'
@@ -51,6 +37,18 @@ def data_prep_archive(batch_size, image_size):
     val['RandomOrder'] = random_order
     val = val.sort_values(by=['RandomOrder', control]).reset_index(drop=True)
     val = val.drop(columns=['RandomOrder'])
+    
+    # Test
+    test_directory = "src/vit_model/archive/test/"
+    test = pd.DataFrame()
+    test['image'], test['label'] = load_dataset(test_directory, data_type)
+    
+    # shuffle the dataset
+    control = 'label'
+    random_order = np.random.permutation(len(test))
+    test['RandomOrder'] = random_order
+    test = test.sort_values(by=['RandomOrder', control]).reset_index(drop=True)
+    test = test.drop(columns=['RandomOrder'])
     
     
     train_features = extract_features(train['image'], image_size)
@@ -74,46 +72,63 @@ def data_prep_archive(batch_size, image_size):
                                   shuffle=True # shuffle data every epoch?
                                  )
 
+    val_dataloader = DataLoader(list(zip(val_features, y_val)), 
+                                batch_size=batch_size, shuffle=True)
     
     test_dataloader = DataLoader(list(zip(test_features, y_test)),
                                  batch_size=batch_size,
-                                 shuffle=True)
-    
-    val_dataloader = DataLoader(list(zip(val_features, y_val)), 
-                                batch_size=batch_size, shuffle=False)
-    
-    classes = ['Bird','Cat', 'Dog']
+                                 shuffle=False)
+        
+    classes = ['Forest', 'Mountain']
     return train_dataloader, test_dataloader, val_dataloader, torch.from_numpy(y_train), torch.from_numpy(y_test),  torch.from_numpy(y_val), classes
 
 
-
-
-
-
 def load_dataset(directory):
-    image_paths = []
-    labels = []
-    
-    directory_ = os.listdir(directory)
-    
-    for i in directory_:
-        #path = os.listdir(directory + folder)
-        if i.startswith('.') or i.startswith('_'):
-            directory_.remove(i)
+    if data_type == 'jpg':
+        image_paths = []
+        labels = []
         
-    for folder in directory_:
-        for filename in os.listdir(directory+folder):
-            image_path = os.path.join(directory, folder, filename)
-
-            if filename.startswith('.') or filename.startswith('_') or filename[-4:] != '.jpg':
-                pass
-
-            else:
-                image_paths.append(image_path)
-                labels.append(folder)
+        directory_ = os.listdir(directory)
+        
+        for i in directory_:
+            #path = os.listdir(directory + folder)
+            if i.startswith('.') or i.startswith('_'):
+                directory_.remove(i)
+            
+        for folder in directory_:
+            for filename in os.listdir(directory+folder):
+                image_path = os.path.join(directory, folder, filename)
+    
+                if filename.startswith('.') or filename.startswith('_') or filename[-4:] != '.jpg':
+                    pass
+    
+                else:
+                    image_paths.append(image_path)
+                    labels.append(folder)
+                    
+    elif data_type == 'tiff':
+        image_paths = []
+        labels = []
+        
+        directory_ = os.listdir(directory)
+        
+        for i in directory_:
+            #path = os.listdir(directory + folder)
+            if i.startswith('.') or i.startswith('_'):
+                directory_.remove(i)
+            
+        for folder in directory_:
+            for filename in os.listdir(directory+folder):
+                image_path = os.path.join(directory, folder, filename)
+    
+                if filename.startswith('.') or filename.startswith('_') or filename[-4:] != '.tif':
+                    pass
+    
+                else:
+                    image_paths.append(image_path)
+                    labels.append(folder)
         
     return image_paths, labels
-
 
 
 def extract_features(images, image_size):

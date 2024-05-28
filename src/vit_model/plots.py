@@ -18,11 +18,11 @@ def plot_predictions_cm(class_names, y_test, predict):
 
     
 
-def plot_loss(epoch_count, train_loss, test_loss):
+def plot_loss(epoch_count, train_loss, val_loss):
     # Plot Test and Train Loss
     plt.plot(epoch_count, train_loss, label="Train loss")
-    plt.plot(epoch_count, test_loss , label="Test loss")
-    plt.title("Training and test loss curves")
+    plt.plot(epoch_count, val_loss , label="Validation loss")
+    plt.title("Training and Validation loss curves")
     plt.ylabel("Loss")
     plt.xlabel("Epochs")
     plt.legend()
