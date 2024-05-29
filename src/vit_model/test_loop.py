@@ -1,35 +1,26 @@
 import torch
 from torch import nn
 
-def accuracy_fn(y_true, y_pred):
-    correct = torch.eq(y_true, y_pred).sum().item() # torch.eq() calculates where two tensors are equal
-    acc = (correct / len(y_pred)) * 100 
-    return acc
-
 
 def test_loop(model: torch.nn.Module,
               loss_fn: torch.nn.Module,
               optimizer: torch.optim.Optimizer,
               device: torch.device, 
               test_dataloader: torch.utils.data.DataLoader):
-    
-    """Tests a PyTorch model for a single epoch.
 
-    Turns a target PyTorch model to "eval" mode and then performs
-    a forward pass on a testing dataset.
+    """
+    Evaluate the model on the test dataset and calculate the average loss and accuracy.
 
     Args:
-    model: A PyTorch model to be tested.
-    dataloader: A DataLoader instance for the model to be tested on.
-    loss_fn: A PyTorch loss function to calculate loss on the test data.
-    device: A target device to compute on (e.g. "cuda" or "cpu").
+        model (torch.nn.Module): The neural network model to evaluate.
+        loss_fn (torch.nn.Module): The loss function used to evaluate the model's performance.
+        optimizer (torch.optim.Optimizer): The optimizer used during training (not used in this function, but typically part of the loop structure).
+        device (torch.device): The device (CPU or GPU) to run the evaluation on.
+        test_dataloader (torch.utils.data.DataLoader): The DataLoader providing the test dataset.
 
     Returns:
-    A tuple of testing loss and testing accuracy metrics.
-    In the form (test_loss, test_accuracy). For example:
-
-    (0.0223, 0.8985)
-    
+        float: The average loss on the test dataset.
+        float: The average accuracy on the test dataset.
     """
     
     # Put the model in evaluation mode
@@ -53,12 +44,30 @@ def test_loop(model: torch.nn.Module,
             #test_acc += accuracy_fn(y_test, test_pred)
             test_acc += ((test_pred == y_test).sum().item()/len(test_logits))
             
-
-
-            
-            
     test_loss = test_loss / len(test_dataloader)
     test_acc = test_acc / len(test_dataloader)     
 
 
     return test_loss, test_acc
+
+
+def accuracy_fn(y_true, y_pred):
+
+    """
+    Computes the accuracy of predictions.
+
+    This function calculates the accuracy by comparing the predicted labels
+    (`y_pred`) with the true labels (`y_true`). The accuracy is computed as
+    the percentage of correct predictions.
+
+    Args:
+        y_true (torch.Tensor): The ground truth labels.
+        y_pred (torch.Tensor): The predicted labels.
+
+    Returns:
+        float: The accuracy of the predictions, as a percentage.
+    """
+    
+    correct = torch.eq(y_true, y_pred).sum().item() # torch.eq() calculates where two tensors are equal
+    acc = (correct / len(y_pred)) * 100 
+    return acc

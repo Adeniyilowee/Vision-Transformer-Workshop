@@ -1,12 +1,27 @@
 import torch
-from tqdm.auto import tqdm
-
 from torch import nn
+from tqdm.auto import tqdm
 from src.vit_model import train_loop, test_loop
 
 
 def train_test(model, lr, epochs, train_dataloader, test_dataloader, device):
+    """
+    Trains and evaluates a PyTorch model.
 
+    Args:
+        model (torch.nn.Module): The neural network model to be trained and evaluated.
+        lr (float): Learning rate for the optimizer.
+        epochs (int): Number of training epochs.
+        train_dataloader (torch.utils.data.DataLoader): DataLoader for the training data.
+        test_dataloader (torch.utils.data.DataLoader): DataLoader for the testing data.
+        device (torch.device): Device to run the model on (e.g., 'cpu' or 'cuda').
+
+    Returns:
+        tuple: A tuple containing:
+            - train_loss_ (list of float): List of training losses for each epoch.
+            - test_loss_ (list of float): List of testing losses for each epoch.
+            - epoch_count (list of int): List of epoch indices.
+    """
     
     train_loss_ = []
     test_loss_ = []
@@ -16,12 +31,11 @@ def train_test(model, lr, epochs, train_dataloader, test_dataloader, device):
     test_acc_ = []
     
     # Set loss fucntion
-    loss_fn = nn.CrossEntropyLoss() # for multi class (i.esout_features >1) and no need for sigmoid / softmax
-    #loss_fn = nn.BCEWithLogitsLoss()
+    loss_fn = nn.CrossEntropyLoss() # for multi class (i.e out_features > 1) and no need for sigmoid / softmax
+    # loss_fn = nn.BCEWithLogitsLoss()
     # Create an optimizer
     optimizer = torch.optim.Adam(params=model.parameters(), lr=lr, 
                                  betas=(0.9, 0.999), weight_decay=0.3) # according to the paper
-    
     
     for epoch in tqdm(range(epochs)):
         epoch_count.append(epoch)
@@ -41,8 +55,4 @@ def train_test(model, lr, epochs, train_dataloader, test_dataloader, device):
               f"test_loss: {test_loss:.4f} | "
               f"test_acc: {test_acc:.4f}")
     
-
-    
     return train_loss_, test_loss_, epoch_count
-
-
