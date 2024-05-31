@@ -17,8 +17,6 @@ Please install a Miniconda environment. You will find a Windows, macOS or Linux 
 
         conda env create -f environment.yml
 
-- Type "yes" or "y" and press enter to install all the required initialization dependencies.
-
 - Activate the environment: 
 
         conda activate vit_workshop_2024
