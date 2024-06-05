@@ -13,11 +13,6 @@ Please install a Miniconda environment. You will find a Windows, macOS or Linux 
 
         cd Vision-Transformer-Workshop
 
-- Then update conda:
-
-        conda update -n base -c defaults conda
-
-- Type "yes" or "y" and press enter
 
 - Then create a new conda environment using:
 
