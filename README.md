@@ -38,7 +38,7 @@ Please install a Miniconda environment. You will find a Windows, macOS or Linux 
 
         pip install -e .
 
-- Run: `jupyterlab` At this point your default browser should open a page where you will see the folder with all the git repository files.
+- Run: `jupyter lab` At this point your default browser should open a page where you will see the folder with all the git repository files.
 
 After the workshop, you can deactivate your conda environment via: `conda deactivate`
 
