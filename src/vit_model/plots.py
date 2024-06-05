@@ -1,3 +1,4 @@
+import numpy as np
 import matplotlib.pyplot as plt
 from torchmetrics import ConfusionMatrix
 from mlxtend.plotting import plot_confusion_matrix
@@ -49,3 +50,24 @@ def plot_loss(epoch_count, train_loss, val_loss):
     plt.ylabel("Loss")
     plt.xlabel("Epochs")
     plt.legend()
+
+
+def plot_task(image1, image2):
+    
+    # Plot the images side by side
+    fig, axes = plt.subplots(1, 2, figsize=(8, 4))
+    
+    # Plot image 1
+    axes[0].imshow(np.transpose(image1, (1, 2, 0)), cmap='viridis')
+    axes[0].set_title('Forest')
+    
+    # Plot image 2
+    axes[1].imshow(np.transpose(image2, (1, 2, 0)), cmap='viridis')
+    axes[1].set_title('Mountain')
+    
+    # Remove axis ticks
+    for ax in axes:
+        ax.axis('off')
+    
+    plt.tight_layout()
+    plt.show()

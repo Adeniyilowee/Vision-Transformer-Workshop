@@ -140,9 +140,9 @@ class Head(nn.Module):
     """
     def __init__(self, embed_dim, head_size, dropout):
         super().__init__()
-        self.key = nn.Linear(embed_dim, head_size, bias=False)
-        self.query = nn.Linear(embed_dim, head_size, bias=False)
-        self.value = nn.Linear(embed_dim, head_size, bias=False)
+        self.key = nn.Linear(embed_dim, head_size)
+        self.query = nn.Linear(embed_dim, head_size)
+        self.value = nn.Linear(embed_dim, head_size)
 
         self.dropout = nn.Dropout(dropout)
 
