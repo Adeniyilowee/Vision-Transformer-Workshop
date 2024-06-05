@@ -13,7 +13,6 @@ Please install a Miniconda environment. You will find a Windows, macOS or Linux 
 
         cd Vision-Transformer-Workshop
 
-
 - Then create a new conda environment using:
 
         conda env create -f environment.yml
@@ -21,6 +20,10 @@ Please install a Miniconda environment. You will find a Windows, macOS or Linux 
 - Activate the environment: 
 
         conda activate vit_workshop_2024
+
+- Install requirement.txt using pip : 
+
+        pip --timeout=1000 install -r requirements.txt
 
 - Manually install torch vision using: 
 
