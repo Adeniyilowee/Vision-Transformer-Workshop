@@ -17,17 +17,16 @@ def plot_predictions_cm(class_names, y_test, predict):
     Returns:
         None
     """
-    
+
     # 1. Setup confusion matrix instance and compare predictions to targets
     cm = ConfusionMatrix(num_classes=len(class_names), task='multiclass')
     cm_tensor = cm(preds=predict, target=y_test)
 
     # 2. Plot the confusion matrix
-    fig, ax = plot_confusion_matrix(conf_mat=cm_tensor.numpy(), 
-                                    class_names=class_names, 
+    fig, ax = plot_confusion_matrix(conf_mat=cm_tensor.numpy(),
+                                    class_names=class_names,
                                     figsize=(10, 7))
 
-    
 
 def plot_loss(epoch_count, train_loss, val_loss):
 
@@ -42,10 +41,10 @@ def plot_loss(epoch_count, train_loss, val_loss):
     Returns:
         None
     """
-    
+
     # Plot Test and Train Loss
     plt.plot(epoch_count, train_loss, label="Train loss")
-    plt.plot(epoch_count, val_loss , label="Validation loss")
+    plt.plot(epoch_count, val_loss, label="Validation loss")
     plt.title("Training and Validation loss curves")
     plt.ylabel("Loss")
     plt.xlabel("Epochs")
@@ -53,21 +52,21 @@ def plot_loss(epoch_count, train_loss, val_loss):
 
 
 def plot_task(image1, image2):
-    
+
     # Plot the images side by side
     fig, axes = plt.subplots(1, 2, figsize=(8, 4))
-    
+
     # Plot image 1
     axes[0].imshow(np.transpose(image1, (1, 2, 0)), cmap='viridis')
     axes[0].set_title('Forest')
-    
+
     # Plot image 2
     axes[1].imshow(np.transpose(image2, (1, 2, 0)), cmap='viridis')
     axes[1].set_title('Mountain')
-    
+
     # Remove axis ticks
     for ax in axes:
         ax.axis('off')
-    
+
     plt.tight_layout()
     plt.show()

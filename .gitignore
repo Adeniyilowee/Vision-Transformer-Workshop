@@ -8,3 +8,7 @@ __pycache__
 src/vit_model/data_prep_pretrained.py
 model
 src/vit_model/main.py
+vision_transformer.egg-info
+.tox
+.mypy_cache
+.pytest_cache
