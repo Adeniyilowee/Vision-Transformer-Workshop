@@ -1,3 +1,4 @@
+![Tests](https://github.com/Adeniyilowee/Vision-Transformer-Workshop/actions/workflows/test.yml/badge.svg)
 # Vision Transformers Workshop
 Welcome to the Vision Transformer Workshop! This repository contains materials, code, and resources for a comprehensive workshop designed to introduce the powerful capabilities of Transformer models. Whether you're dealing with seismic data or remote sensing data, this workshop aims to equip you with the knowledge and tools to leverage Transformers in your research and projects.
 
