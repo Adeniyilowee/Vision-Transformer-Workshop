@@ -8,7 +8,7 @@ Please install a Miniconda environment. You will find a Windows, macOS or Linux 
 
 - Clone this repository by using this line of code: 
         
-        git clone https://github.com/Adeniyilowee/Vision-Transformer-Workshop.git
+        git clone -b GFZ_ViT_Workshop https://github.com/Adeniyilowee/Vision-Transformer-Workshop.git
 
 - Open a terminal and change directory to the git cloned repository path:
 
